@@ -1,0 +1,276 @@
+{
+    "key": "CS96",
+    "location": "NA",
+    "environment": "sandbox",
+    "releaseVersion": "Spring '23 Patch 7.1",
+    "releaseNumber": "242.7.1",
+    "status": "OK",
+    "isActive": false,
+    "city": "",
+    "stateName": "",
+    "stateCode": "",
+    "countryName": "",
+    "countryCode": "",
+    "maintenanceWindow": "Saturdays 07:00 PM - 11:00 PM PST",
+    "Services": [
+        {
+            "key": "coreService",
+            "order": 1,
+            "isCore": true
+        },
+        {
+            "key": "liveAgent",
+            "order": 20,
+            "isCore": false
+        },
+        {
+            "key": "EinsteinBots",
+            "order": 110,
+            "isCore": false
+        },
+        {
+            "key": "Communities",
+            "order": 200,
+            "isCore": false
+        },
+        {
+            "key": "search",
+            "order": 5,
+            "isCore": false
+        },
+        {
+            "key": "Customer360Audiences",
+            "order": 500,
+            "isCore": false
+        },
+        {
+            "key": "analytics",
+            "order": 10,
+            "isCore": false
+        },
+        {
+            "key": "CPQandBilling",
+            "order": 100,
+            "isCore": false
+        },
+        {
+            "key": "ServiceCloudVoice",
+            "order": 600,
+            "isCore": false
+        },
+        {
+            "key": "SalesforceCMS",
+            "order": 1200,
+            "isCore": false
+        },
+        {
+            "key": "SALESFORCEORDERMANAGEMENT",
+            "order": 1210,
+            "isCore": false
+        },
+        {
+            "key": "B2BCommerce",
+            "order": 1300,
+            "isCore": false
+        },
+        {
+            "key": "B2B2CCommerce",
+            "order": 1400,
+            "isCore": false
+        }
+    ],
+    "Products": [
+        {
+            "key": "Salesforce_Services",
+            "order": 0,
+            "isActive": true,
+            "name": "Salesforce Services",
+            "altDisplayName": "Sales and Service",
+            "url": "/products/Salesforce_Services"
+        }
+    ],
+    "Incidents": [],
+    "Maintenances": [],
+    "Tags": [],
+    "GeneralMessage": [
+        {
+            "id": 1465,
+            "subject": "Upcoming Maintenance to Multi-Factor Authentication (MFA) Services on October 19",
+            "body": "Salesforce Multi-Factor Authentication (MFA) Services will undergo scheduled maintenance on Saturday, October 19, 2024, from 18:00-18:30 UTC. During the maintenance, users will be unable to enroll new MFA verifiers. Verifications with existing MFA verifiers will continue to work. If Salesforce Authenticator users encounter an error, they can use the provided 6-digit OTP code or an alternate verifier.\n\nIf you need to log in during the 30-minute maintenance window, this Knowledge Article provides a workaround: https://help.salesforce.com/s/articleView?id=sf.salesforce_authenticator_notifications_unavailable.htm&type=5",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-09-23T21:00:00.000Z",
+            "endDate": "2024-10-19T19:00:00.000Z",
+            "createdAt": "2024-09-23T21:00:11.722Z",
+            "updatedAt": "2024-09-23T21:00:11.722Z",
+            "externalId": null,
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": []
+        },
+        {
+            "id": 1467,
+            "subject": "Service Disruption - Marketing Cloud Engagement",
+            "body": "On September 23, 2024, at 22:42 UTC, the Salesforce Technology team noted a service disruption impacting a subset of customers in the East Coast and Midwest region of the US.\n\nImpact: A subset of customers may have experienced delays in email sending and failure to load images, clicks, views, and pages. \n\nUpon investigation, the team determined potential connectivity issues at the network tier and took necessary action to bring customers out of impact. At 00:27 UTC on September 24, 2024, the Salesforce Technology team called out an all-clear after monitoring performance and completing all health checks.",
+            "incidentId": "INC021610",
+            "publicView": true,
+            "startDate": "2024-09-23T22:42:00.000Z",
+            "endDate": "2024-09-24T00:27:00.000Z",
+            "createdAt": "2024-09-24T02:07:30.171Z",
+            "updatedAt": "2024-09-24T03:39:01.750Z",
+            "externalId": "65947188",
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": []
+        },
+        {
+            "id": 1466,
+            "subject": "Feature Degradation - Data Cloud - Developer Edition Provisioning",
+            "body": "The Salesforce Technology team noted a feature disruption impacting the provisioning of  Developer Edition for Data Cloud in the USA-East region. Impact began at approximately 08:59 UTC on September 21, 2024. \n\nImpact: Upon initial investigation, it was noted that existing customers could still access the tenants and service; however, new customers could not create any tenants in the region.",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-09-21T08:59:00.000Z",
+            "endDate": "2024-09-24T12:33:00.000Z",
+            "createdAt": "2024-09-24T01:49:15.096Z",
+            "updatedAt": "2024-09-24T14:32:56.872Z",
+            "externalId": "65949237",
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": [
+                {
+                    "id": 251,
+                    "message": "We’ve freed up capacity, and as of 12:33 UTC on September 24, customers can now create new tenants.",
+                    "createdAt": "2024-09-24T14:32:56.882Z",
+                    "updatedAt": "2024-09-24T14:32:56.882Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1466
+                },
+                {
+                    "id": 250,
+                    "message": "The Salesforce Technology team has revised the impact to Feature Degradation and confirmed the start time, 08:59 UTC on September 21.",
+                    "createdAt": "2024-09-24T03:40:30.071Z",
+                    "updatedAt": "2024-09-24T03:40:30.071Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1466
+                }
+            ]
+        },
+        {
+            "id": 1468,
+            "subject": "Service Disruption - Marketing Cloud Engagement",
+            "body": "Issue: On September 26, 2024, at 16:07 UTC, the Salesforce Technology team noted a service disruption impacting a subset of customers in the East Coast and Midwest region of the US.\n\nImpact: A subset of customers may experience delays in email sending and failure to load images, clicks, views, and pages.",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-09-26T16:07:00.000Z",
+            "endDate": "2024-09-26T18:57:00.000Z",
+            "createdAt": "2024-09-26T17:53:47.673Z",
+            "updatedAt": "2024-09-26T19:49:46.813Z",
+            "externalId": "66037819",
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": [
+                {
+                    "id": 252,
+                    "message": "We've identified a potential issue with a third-party DNS vendor, that is likely linked to this service disruption. Our teams are collaborating with them to troubleshoot and restore services as quickly as possible, while also conducting an internal investigation.\n\nWe’ll provide an update in 60 minutes or sooner if additional information becomes available.",
+                    "createdAt": "2024-09-26T19:02:26.337Z",
+                    "updatedAt": "2024-09-26T19:02:26.337Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1468
+                },
+                {
+                    "id": 253,
+                    "message": "Our third-party DNS provider took corrective action, leading to the full restoration of services. To prevent future occurrences, we are increasing capacity to ensure stability. After monitoring the environment and performing health checks, the issue was confirmed fully resolved as of 18:57 UTC.\n\nWe will thoroughly investigate the incident, confirming the technical trigger, the underlying cause, and preventive action to avoid a repeat in the future.",
+                    "createdAt": "2024-09-26T19:49:46.824Z",
+                    "updatedAt": "2024-09-26T19:49:46.824Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1468
+                }
+            ]
+        },
+        {
+            "id": 1469,
+            "subject": "Performance degradation when testing credit card transactions in sandbox environments",
+            "body": "Issue: On October 8, 2024, at 19:00 UTC, the Salesforce Technology team identified an issue with the testing system customers use when processing credit card transactions for Salesforce payments in sandbox environments.\n\nImpact: Customers are experiencing errors when testing credit card transactions for Salesforce payments in their sandbox environments.\n\nWe have identified the trigger for this issue and are working with a third-party vendor to resolve it as quickly as possible. \n\nWe’ll provide another update as additional information becomes available.",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-10-08T19:00:00.000Z",
+            "endDate": "2024-10-09T14:52:00.000Z",
+            "createdAt": "2024-10-08T21:09:51.808Z",
+            "updatedAt": "2024-10-09T16:32:45.875Z",
+            "externalId": null,
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": [
+                {
+                    "id": 254,
+                    "message": "The third-party vendor confirmed that this issue has been resolved as of 14:52 UTC on October 9, 2024.",
+                    "createdAt": "2024-10-09T16:32:45.881Z",
+                    "updatedAt": "2024-10-09T16:32:45.881Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1469
+                }
+            ]
+        },
+        {
+            "id": 1379,
+            "subject": "Notice: European Union Regulations Regarding Provision of Software to Russia",
+            "body": "We understand the availability of our services is vital to your business. We value transparency and are sharing this notice regarding European Union Council Regulation 2023/2878 of 18 December 2023 amending Council Regulation 833/2014, which prohibits the direct or indirect provision of enterprise management software to legal persons and entities established in Russia. \n\nSalesforce takes its sanctions and export control obligations seriously, and we require our customers and partners to do the same. Until further notice, we expect our customers and partners will not provide access to Salesforce products and services to their users or affiliates in Russia without legal authorization. Salesforce reserves the right to enforce technical access controls in Russia as per compliance with European Union Council Regulation 2023/2878. \n\nIf your organization requires access to Salesforce products and services in Russia, please contact your Salesforce account team about our exceptions process.",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-05-24T18:58:00.000Z",
+            "endDate": "2024-09-13T23:59:00.000Z",
+            "createdAt": "2024-05-24T19:00:00.507Z",
+            "updatedAt": "2024-09-13T23:33:17.110Z",
+            "externalId": null,
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "informationalMessage",
+            "productKeys": [],
+            "InformationalMessageUpdates": []
+        },
+        {
+            "id": 1464,
+            "subject": "Performance Degradation on B2C Commerce Cloud",
+            "body": "Issue: On September 16, 2024, at 04:03 UTC, the Salesforce Technology team noted a performance degradation via monitoring, impacting B2C customers across multiple instances. \nThe team identified degraded performance in the Salesforce Commerce Application Programming Interface (API) service, which may have resulted in a subset of customers experiencing slow performance.\n\nImpact: A subset of customers may have experienced slow performance while searching and browsing Commerce Cloud websites. \nThe performance improved as of 04:43 UTC and is within expected levels; however, out of an abundance of caution, the team continues to monitor performance levels.",
+            "incidentId": null,
+            "publicView": true,
+            "startDate": "2024-09-16T04:03:00.000Z",
+            "endDate": "2024-09-16T04:43:00.000Z",
+            "createdAt": "2024-09-16T06:17:24.871Z",
+            "updatedAt": "2024-09-16T06:32:42.690Z",
+            "externalId": "65810063",
+            "isVisibleWhenClosed": false,
+            "isVisible": true,
+            "informationalMessageType": "productSpecific",
+            "productKeys": [
+                "B2C_Commerce_Cloud"
+            ],
+            "InformationalMessageUpdates": [
+                {
+                    "id": 249,
+                    "message": "The team has validated and confirmed that performance is now at pre-event levels. As of 04:43 UTC, the customers are out of impact. The technology team will continue to monitor. \n\nWe apologize for how you and your business may have been affected by this incident.",
+                    "createdAt": "2024-09-16T06:32:42.700Z",
+                    "updatedAt": "2024-09-16T06:32:42.700Z",
+                    "createdBy": "Admin_UI_B",
+                    "updatedBy": "Admin_UI_B",
+                    "GeneralMessageId": 1464
+                }
+            ]
+        }
+    ]
+}

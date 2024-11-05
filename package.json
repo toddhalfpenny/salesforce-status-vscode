@@ -17,7 +17,20 @@
         "command": "salesforce-status.org-status",
         "title": "Org Status"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "salesforce-status.org-status",
+          "group": "z_commands"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "salesforce-status.org-status"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -30,12 +43,14 @@
   "devDependencies": {
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
+    "@types/sinon": "^17.0.3",
     "@types/vscode": "^1.94.0",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.11.1",
+    "sinon": "^19.0.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {

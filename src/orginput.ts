@@ -26,7 +26,7 @@ export async function showInputBox(defaultInstance: string) {
 		prompt: 'The instance for your default org is above, feel free to input another and hit [enter]',
 		value: defaultInstance,
 		// valueSelection: [2, 4],
-		placeHolder: 'For example: SWE96',
+		placeHolder: 'For example: SWE98',
 		// validateInput: text => {
 		// 	window.showInformationMessage(`Validating: ${text}`);
 		// 	return text === '123' ? 'Not 123!' : null;

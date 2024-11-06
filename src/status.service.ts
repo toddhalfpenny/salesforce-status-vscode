@@ -1,23 +1,25 @@
 /**
  * A service for calling the status.salesforce.com
- * 
+ *
  */
 
-const API_ENDPOINT:string = 'https://api.status.salesforce.com/v1/';
+const API_ENDPOINT: string = "https://api.status.salesforce.com/v1/";
 
 export interface InstanceStatus {
-  "key": string;
-  "location": string;
-  "environment": string;
-  "releaseVersion": string;
-  "releaseNumber": string;
-  "status": string;
-  "isActive": boolean;
-  "Incidents": any[];
-  "Maintenances": any[];
+  key: string;
+  location: string;
+  environment: string;
+  releaseVersion: string;
+  releaseNumber: string;
+  status: string;
+  isActive: boolean;
+  Incidents: any[];
+  Maintenances: any[];
 }
 
-export async function instanceStatus(instance: string): Promise<InstanceStatus> {
+export async function instanceStatus(
+  instance: string,
+): Promise<InstanceStatus> {
   try {
     const uri = `${API_ENDPOINT}instances/${instance}/status`;
     console.log(uri);

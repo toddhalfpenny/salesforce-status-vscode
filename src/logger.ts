@@ -2,14 +2,13 @@
  * logger.ts
  * Utility to log to console/output channel
  */
-import { ExtensionContext, OutputChannel, window } from 'vscode';
+import { ExtensionContext, OutputChannel, window } from "vscode";
 
 let outputChannel: OutputChannel;
 
-
 export const activate = (context: ExtensionContext): void => {
   outputChannel = window.createOutputChannel("SF Org Status");
-	outputChannel.clear();
+  outputChannel.clear();
 };
 
 /**
@@ -21,7 +20,7 @@ export const activate = (context: ExtensionContext): void => {
 export const printChannelOutput = (content: string, reveal = false): void => {
   outputChannel.appendLine(content);
   if (reveal) {
-      outputChannel.show(true);
+    outputChannel.show(true);
   }
   console.log(content);
 };

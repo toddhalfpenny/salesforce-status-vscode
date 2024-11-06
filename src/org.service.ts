@@ -1,10 +1,8 @@
 /**
  * Org Service
  */
-import { workspace } from 'vscode';
 import { readFileSync } from "fs";
 import { AuthInfo, Connection } from '@salesforce/core-bundle';
-import { report } from 'process';
 
 export interface OrgEvent {
   "id": number;
@@ -249,7 +247,8 @@ function formatOrgExpiry(expiry: Date):string {
   const daysDiff = datediff(now.valueOf(), expiryDate.valueOf());
   console.log('daysDiff', daysDiff);
   const col: string = (daysDiff > 5) ? '' : 'red';
-  return `<span style="padding:5px;background:${col};color:white;font-weight:bold;border-radius:5px">${formatDateStr(expiryDate)} (in ${daysDiff} days)</span>`;
+  const weight: string = (daysDiff > 5) ? 'normal' : 'bold';
+  return `<span style="padding:5px;background:${col};color:white;font-weight:${weight};border-radius:5px">${formatDateStr(expiryDate)} (in ${daysDiff} days)</span>`;
 }
 
 function datediff(first: number, second: number) {       

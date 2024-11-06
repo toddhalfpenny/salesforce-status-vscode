@@ -21,9 +21,12 @@ export async function showQuickPick() {
  * Shows an input box using window.showInputBox().
  */
 export async function showInputBox(defaultInstance: string) {
+	const prompt = (defaultInstance) ? 
+		'The instance for your default org is above, feel free to input another and hit [enter]' :
+		'Please enter an instance key and hit [enter]';
 	const result = await window.showInputBox({
     title: 'Org Instance:',
-		prompt: 'The instance for your default org is above, feel free to input another and hit [enter]',
+		prompt: prompt,
 		value: defaultInstance,
 		// valueSelection: [2, 4],
 		placeHolder: 'For example: SWE98',

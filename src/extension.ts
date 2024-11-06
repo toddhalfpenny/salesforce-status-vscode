@@ -1,9 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { window, workspace, commands, CancellationTokenSource, ExtensionContext, MessageOptions, Position, ProgressLocation, Uri } from 'vscode';
-import { showQuickPick, showInputBox } from './orginput';
+import { window, workspace, commands, ExtensionContext, MessageOptions, Position, ProgressLocation, Uri } from 'vscode';
+import { showInputBox } from './orginput';
 import { createMD, getDefaultInstance } from './org.service';
 import { instanceStatus, InstanceStatus } from './status.service';
+import * as logger from './logger';
 import { resolve } from 'path';
 
 
@@ -14,18 +15,26 @@ export function activate(context: ExtensionContext) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "salesforce-status" is now active!');
-	const outpuChannel = window.createOutputChannel("SF Org Status");
-	outpuChannel.clear();
-	outpuChannel.show();
+	logger.activate(context);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	const disposable = commands.registerCommand('salesforce-status.org-status', async () => {
 
-		const instanceRec = await getDefaultInstance();
-		outpuChannel.appendLine('\nINSTANCE REC\n= = = = = = = = = =');
-		outpuChannel.appendLine(JSON.stringify(instanceRec));
+		let instanceRec: any;
+		const progressBarInstance = await window.withProgress({
+			location: ProgressLocation.Notification,
+			title: 'Getting default org...',
+			cancellable: true
+		}, async () => {
+			const p = new Promise<void>(resolve => {
+				setTimeout(() => {
+					resolve();
+				}, 10000);
+			});
+			instanceRec = await getDefaultInstance();
+			resolve();
+		});
+		logger.printChannelOutput('\nINSTANCE REC\n= = = = = = = = = =', true);
+		logger.printChannelOutput(JSON.stringify(instanceRec));
 		const instance = await showInputBox(instanceRec?.InstanceName);
 		if (instance) {
 			let status: InstanceStatus;
@@ -42,8 +51,8 @@ export function activate(context: ExtensionContext) {
 				});
 				// Get status
 				status = await instanceStatus(instance as string);
-				outpuChannel.appendLine('\nSTATUS\n= = = = = = = = = =');
-				outpuChannel.appendLine(JSON.stringify(status));
+				logger.printChannelOutput('\nSTATUS\n= = = = = = = = = =');
+				logger.printChannelOutput(JSON.stringify(status));
 				resolve();
 			}).then(() => {
 				if (instanceRec?.TrialExpirationDate && instanceRec.IsSandbox) {

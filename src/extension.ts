@@ -30,6 +30,7 @@ export function activate(context: ExtensionContext) {
     "salesforce-status.org-status",
     async () => {
       let instanceRec: any;
+      let md: string;
       const progressBarInstance = await window.withProgress(
         {
           location: ProgressLocation.Notification,
@@ -72,10 +73,12 @@ export function activate(context: ExtensionContext) {
               resolve();
             },
           )
-          .then(() => {
+          .then( async () => {
             if (instanceRec?.TrialExpirationDate && instanceRec.IsSandbox) {
               status.environment = "Scratch";
             }
+
+            md = await createMD(status, instanceRec);
             const options: MessageOptions = {
               detail: `Status: ${status.status}\n\rEnv: ${status.environment}\n\rRelease: ${status.releaseVersion} (${status.releaseNumber})\n\rLocation: ${status.location}`,
               modal: true,
@@ -89,7 +92,7 @@ export function activate(context: ExtensionContext) {
           .then((clickedItem) => {
             if (clickedItem === "Show more") {
               console.log("show more");
-              showMore(status, instanceRec);
+              showMore(md);
             }
           });
       }
@@ -99,15 +102,14 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-async function showMore(status: any, instanceRec: any) {
+async function showMore(markdown: string) {
   let setting = Uri.parse("untitled:orgstatus.md");
-  const md = await createMD(status, instanceRec);
   const doc = await workspace.openTextDocument(setting);
   const e = await window.showTextDocument(doc, 1, false);
-  e.edit(async (edit) => {
-    edit.insert(new Position(0, 0), md);
-    commands.executeCommand("markdown.showPreview", setting);
-  });
+    e.edit(async (edit) => {
+      await edit.insert(new Position(0, 0), markdown);
+      commands.executeCommand("markdown.showPreview", setting);
+    });
 }
 
 // This method is called when your extension is deactivated

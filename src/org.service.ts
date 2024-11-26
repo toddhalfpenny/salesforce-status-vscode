@@ -153,8 +153,8 @@ export async function createMD(status: any, instanceRec: any): Promise<string> {
       const eventUrl =
         event.type === "Maintenance"
           ? `https://status.salesforce.com/maintenances/${event.id}`
-          : `https://status.salesforce.com/incidents/${event.id}`;
-      md += `|[${event.id}](${eventUrl})|${event.name}|${event.type}|${event.subType}|${event.availability}|${startTime}|${endTime}|\n`;
+          : `https://status.salesforce.com/incidents/${event.parent}`;
+      md += `|[${(event.parent ?? event.id)}](${eventUrl})|${(event.name) ?? event.type}|${event.type}|${event.subType}|${(event.availability) ?? event.severity}|${startTime}|${endTime}|\n`;
     }
     resolve(md);
   });

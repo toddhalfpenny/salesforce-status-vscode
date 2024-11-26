@@ -160,6 +160,29 @@ export async function createMD(status: any, instanceRec: any): Promise<string> {
   });
 }
 
+export async function createMarkup(status: any, instanceRec: any): Promise<string> {
+  const orgEvents: OrgEvent[] = await parseOrgEvents(
+    status as StatusCallResult,
+  );
+
+  const incidentsStr = await getIncidentsAndMaintenances(status);
+  const orgExpiry = (instanceRec.TrialExpirationDate) ? 
+    /*html*/ `<p><label>Org Expiry:</label>${formatOrgExpiry(instanceRec.TrialExpirationDate)}</p>` :
+    '';
+  return /*html*/ `
+    <h1>${status.key} Status</h1>
+
+    <div id="summary">
+      <p><label>Status:</label>${formatStatusStr(status.status)}</p>
+      <p><label>Environment:</label>${status.environment}</p>
+      <p><label>Release:</label>${status.releaseVersion} (${status.releaseNumber})</p>
+      <p><label>Location:</label>${status.location}</p>
+      ${orgExpiry}
+      <p><a href="https://status.salesforce.com/instances/${status.key}">View instance on status.salesforce.com</a></p>
+    </div>
+    ${incidentsStr}`;
+}
+
 function parseOrgEvents(statusResponse: StatusCallResult): Promise<OrgEvent[]> {
   return new Promise(async (resolve, reject) => {
     // console.log('parseOrgEvents', statusResponse);
@@ -223,6 +246,8 @@ function formatEventStrings(type: string): string {
       return "Feature service disruption";
     case "fullyAvailable":
       return "Fully available";
+    case "minor":
+      return "Minor";
     case "performanceDegradation":
       return "Performance degradation";
     case "readOnly":
@@ -278,4 +303,49 @@ function formatOrgExpiry(expiry: Date): string {
 function datediff(first: number, second: number) {
   console.log("datediff", first, second);
   return Math.round((second - first) / (1000 * 60 * 60 * 24));
+}
+
+async function getIncidentsAndMaintenances(status: any) {
+  return new Promise(async (resolve, reject) => {
+
+    let returnStr = /*html*/ `<div id="incidentsAndMaintenances">
+      <h2>Incidents & Maintenances</h2>
+      <table id="variables-grid" generate-header="sticky" aria-label="variables">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Sub type</th>
+            <th>Availability</th>
+            <th>Start</th>
+            <th>End</th>
+          </tr>
+        <thead>
+        <tbody>`;
+    const orgEvents = await parseOrgEvents(status);
+    for (const event of orgEvents) {
+      const startTime = formatDateStr(new Date(event.startTime));
+      const endTime = formatDateStr(new Date(event.endTime));
+      const eventUrl =
+        event.type === "Maintenance"
+          ? `https://status.salesforce.com/maintenances/${event.id}`
+          : `https://status.salesforce.com/incidents/${event.parent}`;
+      returnStr += /*html*/ `
+        <tr>
+          <td><a href="${eventUrl}">${(event.parent ?? event.id)}</a></td>
+          <td>${(event.name) ?? event.type}</td>
+          <td>${event.type}</td>
+          <td>${event.subType}</td>
+          <td>${(event.availability) ?? event.severity}</td>
+          <td>${startTime}</td>
+          <td>${endTime}</td>
+        </tr>
+      `;
+    }
+    returnStr +=  /*html*/ `
+      </tbody>
+      </table>`;
+    resolve(returnStr);
+  });
 }

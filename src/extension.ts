@@ -11,10 +11,11 @@ import {
   Uri,
 } from "vscode";
 import { showInputBox } from "./orginput";
-import { createMD, getDefaultInstance } from "./org.service";
+import { createMD, createMarkup, getDefaultInstance } from "./org.service";
 import { instanceStatus, InstanceStatus } from "./status.service";
 import * as logger from "./logger";
 import { resolve } from "path";
+import { StatusPanel } from "./panels/statusPanel";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -26,9 +27,25 @@ export function activate(context: ExtensionContext) {
   );
   logger.activate(context);
 
+  const disposableWebView = commands.registerCommand(
+    "salesforce-status.org-status-webview",
+    async () => {
+      try {
+
+      const res = await getStatus();
+      const htmlBody = await createMarkup(res?.status, res?.org);
+      console.log("TODD", res);
+        StatusPanel.render(context.extensionUri, htmlBody);
+      } catch (error) {
+        console.error(error);
+      };	
+    }
+  );
+      
   const disposable = commands.registerCommand(
     "salesforce-status.org-status",
     async () => {
+      // TODO MOVE THIS ALL OUT TO THE getStatus();
       let instanceRec: any;
       let md: string;
       const progressBarInstance = await window.withProgress(
@@ -100,6 +117,62 @@ export function activate(context: ExtensionContext) {
   );
 
   context.subscriptions.push(disposable);
+  context.subscriptions.push(disposableWebView);
+}
+
+async function getStatus() {
+  let instanceRec: any;
+  let md: string;
+  await window.withProgress(
+    {
+      location: ProgressLocation.Notification,
+      title: "Getting default org...",
+      cancellable: true,
+    },
+    async () => {
+      const p = new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 10000);
+      });
+      instanceRec = await getDefaultInstance();
+      resolve();
+    },
+  );
+  logger.printChannelOutput("\nINSTANCE REC\n= = = = = = = = = =", true);
+  logger.printChannelOutput(JSON.stringify(instanceRec));
+  const instance = await showInputBox(instanceRec?.InstanceName);
+  if (instance) {
+    let status: InstanceStatus = {};
+    // Progress bar
+    await window
+      .withProgress(
+        {
+          location: ProgressLocation.Notification,
+          title: "Fetching status",
+          cancellable: true,
+        },
+        async () => {
+          const p = new Promise<void>((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 10000);
+          });
+          // Get status
+          status = await instanceStatus(instance as string);
+          logger.printChannelOutput("\nSTATUS\n= = = = = = = = = =");
+          logger.printChannelOutput(JSON.stringify(status));
+          resolve();
+        },
+      )
+      .then( async () => {
+        if (instanceRec?.TrialExpirationDate && instanceRec.IsSandbox) {
+          status.environment = "Scratch";
+        }
+        resolve();
+      });
+    return({org: instanceRec, status: status});
+  }
 }
 
 async function showMore(markdown: string) {

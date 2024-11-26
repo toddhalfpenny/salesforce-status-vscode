@@ -16,6 +16,10 @@
       {
         "command": "salesforce-status.org-status",
         "title": "Org Status"
+      },
+      {
+        "command": "salesforce-status.org-status-webview",
+        "title": "Org Status (Advanced)"
       }
     ],
     "menus": {

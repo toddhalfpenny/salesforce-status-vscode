@@ -6,15 +6,15 @@
 const API_ENDPOINT: string = "https://api.status.salesforce.com/v1/";
 
 export interface InstanceStatus {
-  key: string;
-  location: string;
-  environment: string;
-  releaseVersion: string;
-  releaseNumber: string;
-  status: string;
-  isActive: boolean;
-  Incidents: any[];
-  Maintenances: any[];
+  key?: string;
+  location?: string;
+  environment?: string;
+  releaseVersion?: string;
+  releaseNumber?: string;
+  status?: string;
+  isActive?: boolean;
+  Incidents?: any[];
+  Maintenances?: any[];
 }
 
 export async function instanceStatus(

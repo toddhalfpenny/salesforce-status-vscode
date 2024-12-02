@@ -86,6 +86,7 @@ export async function getAlias(path: string) {
   } catch (error) {
     console.error("Failed to read aliases file");
     console.error(error);
+    throw(error);
   }
 }
 
@@ -94,7 +95,7 @@ export async function getDefaultAlias() {
     const path = require("os").homedir();
     return await getAlias(path);
   } catch (error) {
-    // TODO throw
+    throw(error);
   }
 }
 
@@ -103,20 +104,21 @@ export async function getProjectAlias() {
     const path = "./";
     return await getAlias(path);
   } catch (error) {
-    // TODO throw
+    throw(error);
   }
 }
 
 export async function getDefaultInstance() {
   try {
-    let alias = (await getProjectAlias()) ?? (await getDefaultAlias());
+    let alias = await getProjectAlias();
     console.log("alias", alias);
     const aliases = await getAliases();
     const uname = aliases[alias];
     const instance = (await getOrgRecord(uname)).records[0];
     return instance;
   } catch (error) {
-    console.error(error);
+    console.error("org.service => getDefaultInstance", error);
+    throw(error);
   }
 }
 

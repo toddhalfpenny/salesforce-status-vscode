@@ -72,8 +72,14 @@ async function getStatus() {
           resolve();
         }, 10000);
       });
-      instanceRec = await getDefaultInstance();
-      resolve();
+      try {
+        instanceRec = await getDefaultInstance();
+        resolve();
+      } catch (error) {
+        logger.printChannelOutput("Failed to get default Org details.");
+        logger.printChannelOutput(error as string);
+        throw (error);
+      }
     },
   );
   logger.printChannelOutput("\nINSTANCE REC\n= = = = = = = = = =", true);
@@ -96,10 +102,16 @@ async function getStatus() {
             }, 10000);
           });
           // Get status
-          status = await instanceStatus(instance as string);
-          logger.printChannelOutput("\nSTATUS\n= = = = = = = = = =");
-          logger.printChannelOutput(JSON.stringify(status));
-          resolve();
+          try {
+            status = await instanceStatus(instance as string);
+            logger.printChannelOutput("\nSTATUS\n= = = = = = = = = =");
+            logger.printChannelOutput(JSON.stringify(status));
+            resolve();
+          } catch (error) {
+            logger.printChannelOutput("Failed to get instance status.");
+            logger.printChannelOutput(error as string);
+            throw (error);
+          }
         },
       )
       .then( async () => {

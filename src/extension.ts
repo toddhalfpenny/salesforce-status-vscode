@@ -27,97 +27,34 @@ export function activate(context: ExtensionContext) {
   );
   logger.activate(context);
 
-  const disposableWebView = commands.registerCommand(
-    "salesforce-status.org-status-webview",
+  const disposable= commands.registerCommand(
+    "salesforce-status.org-status",
     async () => {
       try {
-
-      const res = await getStatus();
-      const htmlBody = await createMarkup(res?.status, res?.org);
-      console.log("TODD", res);
-        StatusPanel.render(context.extensionUri, htmlBody);
+        const res = await getStatus();
+        if (res) {
+          const options: MessageOptions = {
+            detail: `Status: ${res.status.status}\n\rEnv: ${res.status.environment}\n\rRelease: ${res.status.releaseVersion} (${res.status.releaseNumber})\n\rLocation: ${res.status.location}`,
+            modal: true,
+          };
+          window.showInformationMessage(
+            res.status.key ?? '',
+            options,
+            ...["Show more"],
+          ).then( async clickedItem => {
+            if (clickedItem === "Show more") {
+              const htmlBody = await createMarkup(res.status, res.org);
+              StatusPanel.render(context.extensionUri, htmlBody);
+            }
+          });
+        } 
       } catch (error) {
         console.error(error);
       };	
     }
   );
-      
-  const disposable = commands.registerCommand(
-    "salesforce-status.org-status",
-    async () => {
-      // TODO MOVE THIS ALL OUT TO THE getStatus();
-      let instanceRec: any;
-      let md: string;
-      const progressBarInstance = await window.withProgress(
-        {
-          location: ProgressLocation.Notification,
-          title: "Getting default org...",
-          cancellable: true,
-        },
-        async () => {
-          const p = new Promise<void>((resolve) => {
-            setTimeout(() => {
-              resolve();
-            }, 10000);
-          });
-          instanceRec = await getDefaultInstance();
-          resolve();
-        },
-      );
-      logger.printChannelOutput("\nINSTANCE REC\n= = = = = = = = = =", true);
-      logger.printChannelOutput(JSON.stringify(instanceRec));
-      const instance = await showInputBox(instanceRec?.InstanceName);
-      if (instance) {
-        let status: InstanceStatus;
-        // Progress bar
-        const progressBar = window
-          .withProgress(
-            {
-              location: ProgressLocation.Notification,
-              title: "Fetching status",
-              cancellable: true,
-            },
-            async () => {
-              const p = new Promise<void>((resolve) => {
-                setTimeout(() => {
-                  resolve();
-                }, 10000);
-              });
-              // Get status
-              status = await instanceStatus(instance as string);
-              logger.printChannelOutput("\nSTATUS\n= = = = = = = = = =");
-              logger.printChannelOutput(JSON.stringify(status));
-              resolve();
-            },
-          )
-          .then( async () => {
-            if (instanceRec?.TrialExpirationDate && instanceRec.IsSandbox) {
-              status.environment = "Scratch";
-            }
-
-            md = await createMD(status, instanceRec);
-            const options: MessageOptions = {
-              detail: `Status: ${status.status}\n\rEnv: ${status.environment}\n\rRelease: ${status.releaseVersion} (${status.releaseNumber})\n\rLocation: ${status.location}`,
-              modal: true,
-            };
-            return window.showInformationMessage(
-              instanceRec?.InstanceName,
-              options,
-              ...["Show more"],
-            );
-          })
-          .then((clickedItem) => {
-            if (clickedItem === "Show more") {
-              console.log("show more");
-              showMore(md);
-            }
-          });
-      }
-    },
-  );
-
+ 
   context.subscriptions.push(disposable);
-  context.subscriptions.push(disposableWebView);
 }
 
 async function getStatus() {

@@ -1,13 +1,24 @@
 {
   "name": "salesforce-status",
-  "displayName": "salesforce-status",
+  "displayName": "Salesforce Org Status",
   "description": "Show status, incidents, and maintenance of your Salesforce orgs.",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "author": "Todd Halfpenny",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:toddhalfpenny/sfflowvisualiser-vscode.git"
+  },
+  "publisher": "ToddHalfpenny",
+  "extensionDependencies": [],
   "engines": {
     "vscode": "^1.94.0"
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "Salesforce"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
@@ -15,7 +26,7 @@
     "commands": [
       {
         "command": "salesforce-status.org-status",
-        "title": "FTD: Get Org Status"
+        "title": "Get Salesforce Org Status"
       }
     ],
     "menus": {

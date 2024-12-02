@@ -2,7 +2,7 @@
   "name": "salesforce-status",
   "displayName": "Salesforce Org Status",
   "description": "Show status, incidents, and maintenance of your Salesforce orgs.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Todd Halfpenny",
   "license": "ISC",
   "repository": {
@@ -10,6 +10,7 @@
     "url": "git@github.com:toddhalfpenny/sfflowvisualiser-vscode.git"
   },
   "publisher": "ToddHalfpenny",
+  "icon": "assets/icon.png",
   "extensionDependencies": [],
   "engines": {
     "vscode": "^1.94.0"

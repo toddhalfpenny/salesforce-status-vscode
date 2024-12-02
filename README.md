@@ -21,6 +21,11 @@ None
 ## Release Notes
 
 
+### 0.0.3
+
+- Listing icon
+
+
 ### 0.0.2
 
 - Update Display Name of extension
